@@ -16,14 +16,19 @@ export const AuthRegister = () => {
 
 
     return (
-    <main className="h-screen flex justify-center items-center">
-        <div className="w-[340px] space-y-2">
-            <input name="Full Name" onChange={handleChange} />
-            <input name="Nama Toko" onChange={handleChange} />
-            <input name="Nomor HP" onChange={handleChange} />
-            <input name="Password" onChange={handleChange} />
-            <button onClick={handleSubmitRegister}>Sign Up</button>
+    <main className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-5">
+            <h1 className="text-2xl font-bold text-center">Register Toko Baru</h1>
+            <input name="FullName" placeholder="Nama Lengkap" onChange={handleChange} />
+            <input name="Toko" placeholder="Nama Toko" onChange={handleChange} />
+            <input name="NomorHp" placeholder="Nomor Handphone" onChange={handleChange} />
+            <input name="Password" placeholder="Password" type="password"  onChange={handleChange} />
+            <button onClick={handleSubmitRegister}>Register</button>
+            <div>
+            <p>Sudah memiliki akun? <a href="#" className="text-orange-500 hover:text-orange-700">Login</a></p>
+            </div>
+            
         </div>
         </main>
-    )
+    );
 };
