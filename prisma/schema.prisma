@@ -6,20 +6,29 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url  	= env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
   id        Int         @id @default(autoincrement())
   fullName  String
-  shopName  String      @unique
+  shopName  String     
   email     String      @unique
   password  String
   phone     String      @unique
-  address   String
   inventory Inventory[]
   formOrder FormOrder[]
+}
+
+model FormOrder {
+  id       Int        @id @default(autoincrement())
+  tile     String
+  desc     String
+  user     User       @relation(fields: [userId], references: [id])
+  userId   Int
+  response Response[]
 }
 
 model Inventory {
@@ -30,26 +39,7 @@ model Inventory {
   price  Int
   user   User   @relation(fields: [userId], references: [id])
   userId Int
-  form InventoryOnFormOrder[]
-}
-
-model InventoryOnFormOrder {
-  inventory Inventory @relation(fields: [inventoryId], references: [id])
-  inventoryId Int
-  formOrder FormOrder @relation(fields: [formOrderId], references: [id])
-  formOrderId Int
-  @@id([inventoryId, formOrderId])
-}
-
-model FormOrder {
-  id       Int        @id @default(autoincrement())
-  tile     String
-  desc     String
-  endDate  DateTime
-  user     User       @relation(fields: [userId], references: [id])
-  userId   Int
-  inventory InventoryOnFormOrder[]
-  response Response[]
+  form OrderData[]
 }
 
 model Response {
@@ -59,24 +49,14 @@ model Response {
   customerName    String
   customerAddress String
   customerPhone   String
-  isDelivery      Boolean
   order           OrderData[]
-  totalOrder      Int
   createdAt       DateTime
-  status          Status      @relation(fields: [statusId], references: [id])
-  statusId        Int
 }
 
 model OrderData {
-  id         Int        @id @default(autoincrement())
-  itemName   String
-  itemAmount Int
-  total      Int
-  response   Response[]
-}
-
-model Status {
-  id       Int        @id @default(autoincrement())
-  title    String
-  response Response[]
+  inventory Inventory @relation(fields: [inventoryId], references: [id])
+  inventoryId Int
+  response Response @relation(fields: [responseId], references: [id])
+  responseId Int
+  @@id([inventoryId, responseId])
 }
