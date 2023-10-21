@@ -39,7 +39,7 @@ model Inventory {
   price  Int
   user   User   @relation(fields: [userId], references: [id])
   userId Int
-  form OrderData[]
+  form OrderItems[]
 }
 
 model Response {
@@ -49,11 +49,11 @@ model Response {
   customerName    String
   customerAddress String
   customerPhone   String
-  order           OrderData[]
+  orderItems      OrderItems[]
   createdAt       DateTime
 }
 
-model OrderData {
+model OrderItems {
   inventory Inventory @relation(fields: [inventoryId], references: [id])
   inventoryId Int
   response Response @relation(fields: [responseId], references: [id])
