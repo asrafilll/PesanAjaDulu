@@ -6,17 +6,23 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userid");
 
+  let responseData;
+  console.log(userId);
   try {
-    const responseData = await prisma.response.findMany({
-      where: {
-        form: {
-          userId,
+    if (userId) {
+      responseData = await prisma.response.findMany({
+        where: {
+          form: {
+            userId,
+          },
         },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } else {
+      responseData = await prisma.response.findMany();
+    }
 
     return NextResponse.json(
       { data: responseData, message: "Response Data Fetched" },
