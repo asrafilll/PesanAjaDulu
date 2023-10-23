@@ -1,13 +1,13 @@
 import { prisma } from "@/utils/prisma";
 import { NextResponse } from "next/server";
-import { getSession } from "next-auth/client";
 
 // GET ALL RESPONSE DATA BASED ON THE USERID
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userid");
+
   try {
-    const data = await prisma.response.findMany({
+    const responseData = await prisma.response.findMany({
       where: {
         form: {
           userId,
@@ -17,12 +17,13 @@ export async function GET(request) {
         createdAt: "desc",
       },
     });
+
     return NextResponse.json(
-      { data, message: "Response Data Fetched" },
+      { data: responseData, message: "Response Data Fetched" },
       { status: 200 }
     );
   } catch (error) {
-    NextResponse.json({ message: error }, { status: 500 });
+    return NextResponse.json({ message: error }, { status: 500 });
   }
 }
 
