@@ -53,9 +53,10 @@ model Response {
 }
 
 model OrderItems {
+  id String @id @default(cuid())
   inventory Inventory @relation(fields: [inventoryId], references: [id])
   inventoryId String
   response Response @relation(fields: [responseId], references: [id])
   responseId String
-  @@id([inventoryId, responseId])
+  quantity Int
 }
