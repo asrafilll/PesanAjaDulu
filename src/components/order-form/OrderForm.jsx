@@ -5,6 +5,7 @@ import { ItemCard } from "./ItemCard";
 export const OrderForm = ({ formData }) => {
   const { data } = formData;
   const { inventory } = data;
+  console.log(data);
   return (
     <div className="bg-slate-50 h-screen max-w-screen-sm mx-auto flex flex-col">
       <Header title={data.title} description={data.desc} />

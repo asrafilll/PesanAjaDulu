@@ -15,6 +15,7 @@ export async function GET(_, { params }) {
           include: {
             inventory: {
               select: {
+                id: true,
                 title: true,
                 desc: true,
                 image: true,

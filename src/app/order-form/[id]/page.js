@@ -5,6 +5,7 @@ async function getFormData(id) {
     cache: "no-store",
   });
   const data = await res.json();
+
   return data;
 }
 
