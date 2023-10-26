@@ -4,9 +4,10 @@ import { NextResponse } from "next/server";
 // GET SINGLE FORM BY ID
 export async function GET(_, { params }) {
   const id = params.id;
+  let formData;
 
   try {
-    const formData = await prisma.formOrder.findFirst({
+    formData = await prisma.formOrder.findFirst({
       where: {
         id,
       },

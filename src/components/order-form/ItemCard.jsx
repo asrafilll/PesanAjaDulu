@@ -43,8 +43,11 @@ export const ItemCard = ({ inventoryData }) => {
   return (
     <div className="w-full h-fit pr-2 bg-white rounded-lg border border-zinc-200 items-center gap-2 inline-flex overflow-hidden justify-between">
       <div className="flex items-center gap-2">
-        <div className="max-w-[200px]">
-          <img className="object-cover" src={inventoryData.image} />
+        <div className="w-[120px] h-[120px]">
+          <img
+            className="object-cover w-full h-full"
+            src={inventoryData.image}
+          />
         </div>
         <div className="py-2 flex-col space-y-2">
           <div className="text-orange-500 text-sm font-semibold">

@@ -1,7 +1,8 @@
 import { atom } from "jotai";
 
 export const customerInfoAtom = atom({
-  name: "",
-  address: "",
-  phone: "",
+  customerName: "",
+  customerAddress: "",
+  customerPhone: "",
+  customerNote: "",
 });
