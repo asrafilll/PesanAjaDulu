@@ -22,27 +22,7 @@ export async function GET(req) {
       });
     }
     return NextResponse.json(
-      { data: inventoryData, message: "Response Data Fetched" },
-      { status: 200 }
-    );
-  } catch (error) {
-    return NextResponse.json({ message: error }, { status: 500 });
-  }
-}
-
-// GET SINGLE FORM BY ID
-export async function GET(req) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
-  try {
-    const formData = await prisma.formOrder.findFirst({
-      where: {
-        id,
-      },
-    });
-
-    return NextResponse.json(
-      { data: formData, message: "Form Data Fetched" },
+      { data: formData, message: "Response Data Fetched" },
       { status: 200 }
     );
   } catch (error) {

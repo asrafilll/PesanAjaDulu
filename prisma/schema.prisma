@@ -29,7 +29,15 @@ model FormOrder {
   user        User         @relation(fields: [userId], references: [id])
   userId      String
   response    Response[]
-  orderItems  OrderItems[]
+  inventory InventoryOnForm[]
+}
+
+model InventoryOnForm {
+  id String @id @default(cuid())
+  formId String
+  formOrder FormOrder @relation(fields: [formId], references: [id])
+  inventoryId String
+  inventory Inventory @relation(fields: [inventoryId], references: [id])
 }
 
 model Inventory {
@@ -40,6 +48,7 @@ model Inventory {
   price      Int
   user       User         @relation(fields: [userId], references: [id])
   userId     String
+  formItems InventoryOnForm[]
   orderItems OrderItems[]
 }
 
@@ -56,8 +65,6 @@ model Response {
 
 model OrderItems {
   id          String    @id @default(cuid())
-  form        FormOrder @relation(fields: [formId], references: [id])
-  formId      String
   inventory   Inventory @relation(fields: [inventoryId], references: [id])
   inventoryId String
   response    Response  @relation(fields: [responseId], references: [id])
