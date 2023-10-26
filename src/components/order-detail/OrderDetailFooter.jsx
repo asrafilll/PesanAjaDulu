@@ -33,6 +33,7 @@ export const OrderDetailFooter = () => {
           </div>
         </div>
       </div>
+
       {/* ini btn */}
       {canMove ? (
         <Link href="/order-confirmation">
