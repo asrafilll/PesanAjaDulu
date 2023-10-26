@@ -5,11 +5,6 @@ import { Plus, Minus } from "lucide-react";
 import { useAtom } from "jotai";
 import { selectedItemsAtom } from "@/app/state/orderAtoms";
 
-async function getFromData({ params }) {
-  const id = params.id;
-  const res = await fetch();
-}
-
 export default function page() {
   const [selectedItems, setSelectedItems] = useAtom(selectedItemsAtom);
 

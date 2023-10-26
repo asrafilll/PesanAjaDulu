@@ -19,10 +19,7 @@ export async function GET(req) {
           createdAt: "desc",
         },
       });
-    } else {
-      inventoryData = await prisma.inventory.findMany();
     }
-
     return NextResponse.json(
       { data: inventoryData, message: "Response Data Fetched" },
       { status: 200 }

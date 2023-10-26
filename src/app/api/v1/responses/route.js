@@ -32,18 +32,30 @@ export async function GET(request) {
   }
 }
 
-// CREATE NEW RESPONSE FROM FORMORDER
-export async function POST(request) {
-  const { data } = await request.json();
+// CREATE NEW RESPONSE BY CUSTOMERS
+export async function POST(req) {
+  const { formId, customerName, customerAddress, customerPhone, orderItems } =
+    await req.json();
+
   try {
-    const newResponseData = await prisma.response.create({
-      data,
+    const createResponse = await prisma.response.create({
+      data: {
+        formId,
+        customerName,
+        customerAddress,
+        customerPhone,
+        orderItems: {
+          create: orderItems,
+        },
+        createdAt: new Date(),
+      },
     });
+
     return NextResponse.json(
-      { data: newResponseData, message: "New response created" },
+      { data: createResponse, message: "New response created" },
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ message: error }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
