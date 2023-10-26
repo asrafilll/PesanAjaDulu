@@ -3,18 +3,17 @@ import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { fullName, shopName, phone, password } = await request.json();
+  const { fullName, shopName, phoneNumber, password } = await request.json();
   try {
     const hashedPassword = await hash(password, 10);
     const registerData = await prisma.user.create({
       data: {
         fullName,
         shopName,
-        phone,
+        phoneNumber,
         password: hashedPassword,
       },
     });
-    console.log(registerData);
     return NextResponse.json(
       { data: registerData, message: "Register Berhasil" },
       { status: 201 }

@@ -1,3 +1,9 @@
+import { Provider } from "jotai";
+
 export default function Home() {
-  return <main></main>;
+  return (
+    <Provider>
+      <main></main>
+    </Provider>
+  );
 }

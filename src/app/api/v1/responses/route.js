@@ -7,7 +7,6 @@ export async function GET(request) {
   const userId = searchParams.get("userid");
 
   let responseData;
-  console.log(userId);
   try {
     if (userId) {
       responseData = await prisma.response.findMany({

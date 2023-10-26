@@ -3,11 +3,11 @@ import { compare, hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { phone, password } = await request.json();
+  const { phoneNumber, password } = await request.json();
   try {
     const findUser = await prisma.user.findUnique({
       where: {
-        phone,
+        phoneNumber,
       },
     });
 
