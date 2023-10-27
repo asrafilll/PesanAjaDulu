@@ -1,3 +1,6 @@
+import "../styles/globals.css";
+import { ScreenSize } from "./landingpage/components/screensize";
+import { DefaultLayout } from "./template/default.layout";
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import RootProvider from "./provider";
@@ -15,6 +18,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* <DefaultLayout>
+          {children}
+        </DefaultLayout> */}
         <RootProvider>
           <ToastContainer />
           {children}

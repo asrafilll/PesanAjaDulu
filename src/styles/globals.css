@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 @layer base {
+  main {
+    @apply bg-white;
+  }
+  input {
+    @apply px-3 py-2 bg-white rounded-md shadow-inner border border-gray-200 text-sm focus:outline-none focus:border-orange-500 caret-orange-500 placeholder-neutral-300;
+  }
+  textarea {
+    @apply px-3 py-2 bg-white rounded-md shadow-inner border border-gray-200 text-sm focus:outline-none focus:border-orange-500 caret-orange-500 placeholder-neutral-300;
+  }
+  .menu {
+    @apply cursor-pointer font-medium hover:text-orange-400;
+  }
+}
+
+@layer components {
+  .inputBox {
+    @apply bg-red-500;
+  }
   input {
     @apply w-full px-3 py-1 border border-gray-600 rounded-md shadow-sm focus:outline-none;
   }
