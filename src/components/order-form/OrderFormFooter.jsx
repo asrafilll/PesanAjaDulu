@@ -1,15 +1,18 @@
 "use client";
 
 import { orderAtom, totalPriceAtom } from "@/state/orderAtoms";
+import { formIdAtom } from "@/state/responseAtom";
 import { formatToIDR } from "@/utils/formatter";
 import { useAtom } from "jotai";
 import Link from "next/link";
 
-export const OrderFormFooter = () => {
+export const OrderFormFooter = ({ formIdData }) => {
   const [totalPrice, setTotalPrice] = useAtom(totalPriceAtom);
   const [order, setOrder] = useAtom(orderAtom);
+  const [formId, setFormId] = useAtom(formIdAtom);
 
   const handleChangePage = () => {
+    setFormId(formIdData);
     localStorage.setItem("dataOrderItem", JSON.stringify(order));
   };
 

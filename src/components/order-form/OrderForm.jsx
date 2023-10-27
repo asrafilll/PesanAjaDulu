@@ -13,7 +13,7 @@ export const OrderForm = ({ formData }) => {
           return <ItemCard key={inventory.id} inventoryData={inventory} />;
         })}
       </div>
-      <OrderFormFooter />
+      <OrderFormFooter formIdData={data.id} />
     </div>
   );
 };
