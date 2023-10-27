@@ -7,6 +7,7 @@ import {
   Trash,
   Pencil,
 } from "lucide-react";
+import Link from "next/link";
 
 export const DashboardProduct = () => {
   return (
@@ -76,25 +77,37 @@ export const DashboardProduct = () => {
 
       {/* ini footer */}
       <div className="w-full px-6 py-3 fixed bottom-0 bg-white rounded-tl-3xl rounded-tr-3xl shadow flex-col justify-center items-center gap-3 max-w-screen-sm">
-        {/* container navigation */}
         <div className="w-full justify-evenly items-center flex gap-8">
-          {/* Nav item */}
-          <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
-            <Store className="gap-1 text-neutral-500 mb-1" />
-            <div className="text-xs font-normal text-neutral-500">Pesanan</div>
-          </div>
-          <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
-            <FileText className="gap-1 text-neutral-500 mb-1" />
-            <div className="text-xs font-normal text-neutral-500">Formulir</div>
-          </div>
-          <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
-            <ShoppingBasket className="gap-1 text-orange-500 mb-1" />
-            <div className="text-xs font-semibold text-orange-500">Produk</div>
-          </div>
-          <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
-            <Settings className="gap-1 text-neutral-500 mb-1" />
-            <div className="text-xs font-normal text-neutral-500">Setelan</div>
-          </div>
+          <Link href="/dashboard">
+            <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
+              <Store className="gap-1 text-neutral-500 mb-1" />
+              <div className="text-xs font-semibold text-neutral-500">
+                Pesanan
+              </div>
+            </div>
+          </Link>
+          <Link href="/dashboard-form">
+            <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
+              <FileText className="gap-1 text-neutral-500 mb-1" />
+              <div className="text-xs font-normal text-neutral-500">
+                Formulir
+              </div>
+            </div>
+          </Link>
+          <Link href="/dashboard-product">
+            <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
+              <ShoppingBasket className="gap-1  text-orange-500 mb-1" />
+              <div className="text-xs font-normal text-orange-500">Produk</div>
+            </div>
+          </Link>
+          <Link href="/dashboard-setting">
+            <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
+              <Settings className="gap-1 text-neutral-500 mb-1" />
+              <div className="text-xs font-normal text-neutral-500">
+                Setelan
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
