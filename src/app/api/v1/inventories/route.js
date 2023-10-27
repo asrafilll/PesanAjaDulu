@@ -1,4 +1,4 @@
-import { prisma } from "@/utils/prisma";
+import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -19,10 +19,7 @@ export async function GET(req) {
           createdAt: "desc",
         },
       });
-    } else {
-      inventoryData = await prisma.inventory.findMany();
     }
-
     return NextResponse.json(
       { data: inventoryData, message: "Response Data Fetched" },
       { status: 200 }

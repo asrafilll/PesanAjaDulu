@@ -12,51 +12,63 @@ datasource db {
 }
 
 model User {
-  id        String         @id @default(cuid())
-  fullName  String
-  shopName  String     
-  password  String
-  phone     String      @unique
-  inventory Inventory[]
-  formOrder FormOrder[]
+  id          String      @id @default(cuid())
+  fullName    String
+  shopName    String
+  password    String
+  phoneNumber String      @unique
+  inventory   Inventory[]
+  formOrder   FormOrder[]
 }
 
 model FormOrder {
-  id       String        @id @default(cuid())
-  tile     String
-  desc     String
-  user     User       @relation(fields: [userId], references: [id])
-  userId   String
-  response Response[]
+  id          String       @id @default(cuid())
+  title       String
+  desc        String
+  endFormDate DateTime
+  user        User         @relation(fields: [userId], references: [id])
+  userId      String
+  response    Response[]
+  inventory InventoryOnForm[]
+}
+
+model InventoryOnForm {
+  id String @id @default(cuid())
+  formId String
+  formOrder FormOrder @relation(fields: [formId], references: [id])
+  inventoryId String
+  inventory Inventory @relation(fields: [inventoryId], references: [id])
 }
 
 model Inventory {
-  id     String    @id @default(cuid())
-  title  String
-  desc   String
-  image  String
-  price  Int
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-  form OrderItems[]
+  id         String       @id @default(cuid())
+  title      String
+  desc       String
+  image      String
+  price      Int
+  user       User         @relation(fields: [userId], references: [id])
+  userId     String
+  formItems InventoryOnForm[]
+  orderItems OrderItems[]
 }
 
 model Response {
-  id              String         @id @default(cuid())
-  form            FormOrder   @relation(fields: [formId], references: [id])
+  id              String       @id @default(cuid())
+  form            FormOrder    @relation(fields: [formId], references: [id])
   formId          String
   customerName    String
   customerAddress String
   customerPhone   String
+  customerNote String
   orderItems      OrderItems[]
   createdAt       DateTime
 }
 
 model OrderItems {
-  id String @id @default(cuid())
-  inventory Inventory @relation(fields: [inventoryId], references: [id])
+  id          String    @id @default(cuid())
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
   inventoryId String
-  response Response @relation(fields: [responseId], references: [id])
-  responseId String
-  quantity Int
+  response    Response  @relation(fields: [responseId], references: [id])
+  responseId  String
+  quantity    Int
 }

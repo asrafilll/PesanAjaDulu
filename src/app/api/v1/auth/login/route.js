@@ -1,13 +1,15 @@
-import { prisma } from "@/utils/prisma";
+import prisma from "@/utils/prisma";
 import { compare, hash } from "bcrypt";
+import { sign } from "jsonwebtoken";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function POST(request) {
-  const { phone, password } = await request.json();
+  const { phoneNumber, password } = await request.json();
   try {
     const findUser = await prisma.user.findUnique({
       where: {
-        phone,
+        phoneNumber,
       },
     });
 
@@ -26,6 +28,13 @@ export async function POST(request) {
       fullName: findUser.fullName,
       shopName: findUser.shopName,
     };
+
+    const accessToken = sign(responseData, process.env.ACCESS_TOKEN_KEY, {
+      expiresIn: "7d",
+    });
+
+    cookies().set("access_token", accessToken);
+
     return NextResponse.json({ data: responseData, message: "Login Success" });
   } catch (error) {
     return NextResponse.json({ message: "Error" }, { status: 500 });
