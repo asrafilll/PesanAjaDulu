@@ -20,7 +20,11 @@ export const Login = () => {
       },
       body: JSON.stringify(loginData),
     });
-    const data = await res.json();
+    if (res.status === 201) {
+      window.location.href = "/login";
+    } else {
+      toast.error("Login failed.", {});
+    }
   };
 
   return (

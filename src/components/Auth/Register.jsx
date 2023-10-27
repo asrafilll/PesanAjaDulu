@@ -3,6 +3,8 @@
 import { registerAtom } from "@/state/authAtom";
 import { useAtom } from "jotai";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { CustomToast } from "../shared/Toast";
 
 export const Register = () => {
   const [registerData, setRegisterData] = useAtom(registerAtom);
@@ -20,8 +22,25 @@ export const Register = () => {
       },
       body: JSON.stringify(registerData),
     });
-    const data = await res.json();
-    console.log(data);
+
+    if (res.status === 201) {
+      toast.success("Register is successful", {
+        position: "bottom-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
+
+      // Redirect to login page after 5 seconds
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2500);
+    } else {
+      toast.error("Registration failed.", {});
+    }
   };
 
   return (
