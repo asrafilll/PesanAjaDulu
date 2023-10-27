@@ -1,5 +1,5 @@
 import OrderConfirmation from "@/components/order-confirmation/OrderConfirmation";
 
-export default function page() {
+export default function Page() {
   return <OrderConfirmation />;
 }
