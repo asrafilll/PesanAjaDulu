@@ -1,18 +1,27 @@
 "use client";
 
+import { registerAtom } from "@/state/authAtom";
+import { useAtom } from "jotai";
 import Link from "next/link";
-import { useState } from "react";
 
 export const Register = () => {
-  const [registerData, setRegisterData] = useState({});
+  const [registerData, setRegisterData] = useAtom(registerAtom);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRegisterData({ ...registerData, [name]: value });
+    setRegisterData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmitRegister = () => {
-    console.log(registerData);
+  const handleSubmitRegister = async () => {
+    const res = await fetch("http://localhost:3000/api/v1/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registerData),
+    });
+    const data = await res.json();
+    console.log(data);
   };
 
   return (
@@ -20,25 +29,25 @@ export const Register = () => {
       <div className="max-w-md w-full space-y-5">
         <h1 className="text-2xl font-bold text-center">Register Toko Baru</h1>
         <input
-          name="FullName"
+          name="fullName"
           placeholder="Nama Lengkap"
           onChange={handleChange}
           className="py-2"
         />
         <input
           className="py-2"
-          name="Toko"
+          name="shopName"
           placeholder="Nama Toko"
           onChange={handleChange}
         />
         <input
-          name="NomorHp"
+          name="phoneNumber"
           placeholder="Nomor Handphone"
           onChange={handleChange}
           className="py-2"
         />
         <input
-          name="Password"
+          name="password"
           placeholder="Password"
           type="password"
           onChange={handleChange}

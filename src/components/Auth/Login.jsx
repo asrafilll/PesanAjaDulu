@@ -1,18 +1,26 @@
 "use client";
 
+import { loginAtom } from "@/state/authAtom";
+import { useAtom } from "jotai";
 import Link from "next/link";
-import { useState } from "react";
 
 export const Login = () => {
-  const [loginData, setLoginData] = useState({});
+  const [loginData, setLoginData] = useAtom(loginAtom);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginData({ ...loginData, [name]: value });
+    setLoginData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmitlogin = () => {
-    console.log(loginData);
+  const handleSubmitLogin = async () => {
+    const res = await fetch("http://localhost:3000/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginData),
+    });
+    const data = await res.json();
   };
 
   return (
@@ -22,13 +30,13 @@ export const Login = () => {
           Login ke TinggalPesan
         </h1>
         <input
-          name="NomorHp"
+          name="phoneNumber"
           placeholder="Nomor Handphone"
           onChange={handleChange}
           className="py-2"
         />
         <input
-          name="Password"
+          name="password"
           placeholder="Password"
           type="password"
           onChange={handleChange}
@@ -36,7 +44,7 @@ export const Login = () => {
         />
         <button
           className="hover:bg-orange-600 transition-colors ease-in-out duration-300"
-          onClick={handleSubmitlogin}
+          onClick={handleSubmitLogin}
         >
           Login
         </button>
