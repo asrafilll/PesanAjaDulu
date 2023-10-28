@@ -10,5 +10,6 @@ async function getResponsesData(id) {
 
 export default async function Page({ params }) {
   const { data } = await getResponsesData(params.id);
+  console.log(data);
   return <DashboardHome data={data} />;
 }
