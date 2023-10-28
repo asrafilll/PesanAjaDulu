@@ -46,7 +46,6 @@ export const CreateForm = ({ inventoryItem }) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(payLoad);
     const data = await fetch("http://localhost:3000/api/v1/forms", {
       method: "POST",
       headers: {

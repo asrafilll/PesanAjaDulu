@@ -54,7 +54,6 @@ export const CreateProduct = ({ userId }) => {
           image: `${customString}/${imageUrl.key}`,
           userId: sellerId,
         };
-        console.log(payLoad);
       }
     }
     const data = await fetch("http://localhost:3000/api/v1/inventories", {
@@ -64,7 +63,6 @@ export const CreateProduct = ({ userId }) => {
       },
       body: JSON.stringify(payLoad),
     });
-    console.log(data);
 
     if (data.status === 201) {
       toast.success("Pesanan sukses dibuat!", {
