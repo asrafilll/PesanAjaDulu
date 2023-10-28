@@ -20,7 +20,7 @@ export const DashboardProduct = ({ data }) => {
   const sellerId = id ?? localSellerId;
 
   return (
-    <div className="bg-slate-50 h-[100dvh] max-w-screen-sm mx-auto flex flex-col">
+    <div className="min-h-screen max-w-screen-sm mx-auto flex flex-col">
       {/* ini header */}
       <div className="w-full p-6 bg-slate-50 shadow border-b flex-row items-center sticky top-0">
         <div className="flex flex-row items-center flex-wrap gap-2 ">
@@ -33,10 +33,16 @@ export const DashboardProduct = ({ data }) => {
             </div>
           </div>
           {/* ini btn */}
-          <div className=" py-1 px-2 rounded border border-orange-500 justify-center items-center gap-1 inline-flex text-sm font-semibold text-orange-500 cursor-pointer">
-            <Plus className=" text-orange-500" size={12} absoluteStrokeWidth />
-            Buat Formulir
-          </div>
+          <Link href={`/create-product/${sellerId}`}>
+            <div className=" py-1 px-2 rounded border border-orange-500 justify-center items-center gap-1 inline-flex text-sm font-semibold text-orange-500 cursor-pointer">
+              <Plus
+                className=" text-orange-500"
+                size={12}
+                absoluteStrokeWidth
+              />
+              Buat Menu Baru
+            </div>
+          </Link>
         </div>
       </div>
 

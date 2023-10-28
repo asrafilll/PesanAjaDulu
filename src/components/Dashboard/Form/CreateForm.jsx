@@ -5,14 +5,14 @@ import { useAtom } from "jotai";
 import { newFormAtom } from "@/state/newFormAtom";
 import { sellerIdAtom } from "@/state/sellerIdAtom";
 import { ChevronLeft } from "lucide-react";
-import Link from "next/link";
 import { formatToIDR } from "@/utils/formatter";
+import { toast } from "react-toastify";
 
 export const CreateForm = ({ inventoryItem }) => {
+  const router = useRouter();
   const [id, setSellerIdAtom] = useAtom(sellerIdAtom);
   const [formData, setFormData] = useAtom(newFormAtom);
   const [localSellerId, setLocalSellerId] = useState("");
-  const sellerId = id ?? localSellerId;
 
   useEffect(() => {
     if (!id) {
@@ -20,6 +20,8 @@ export const CreateForm = ({ inventoryItem }) => {
       setLocalSellerId(storedSellerId);
     }
   }, [id]);
+
+  const sellerId = id ?? localSellerId;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,18 +54,39 @@ export const CreateForm = ({ inventoryItem }) => {
       },
       body: JSON.stringify(payLoad),
     });
-    console.log(data);
+    if (data.status === 200) {
+      toast.success("Form sukses dibuat!", {
+        position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
+      router.back();
+    } else {
+      toast.error("Gagal Buat Form", {
+        position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
+    }
   };
 
   return (
     <div className="max-w-md mx-auto space-y-2 py-10 justify-center">
-      <Link href={`dashboard-form/${sellerId}`}>
-        {" "}
-        <div className="w-16 h-6 justify-start items-center flex">
-          <ChevronLeft className="text-neutral-500" />
-          <div className="text-neutral-500 text-xs">Kembali</div>
-        </div>
-      </Link>
+      <div
+        className="w-16 h-6 justify-start items-center flex"
+        onClick={() => router.back()}
+      >
+        <ChevronLeft className="text-neutral-500" />
+        <div className="text-neutral-500 text-xs">Kembali</div>
+      </div>
       <div className="text-lg text-orange-500">Buat Form Pre-Order Baru</div>
       <div className="text-sm text-neutral-500">
         Silahkan membuat sebuah form pre-order baru untuk dibagikan dengan
