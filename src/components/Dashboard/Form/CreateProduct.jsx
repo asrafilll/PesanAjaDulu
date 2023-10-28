@@ -6,7 +6,7 @@ import { sellerIdAtom } from "@/state/sellerIdAtom";
 import { ChevronLeft } from "lucide-react";
 import { newInventoryAtom } from "@/state/newInventoryAtom";
 import { toast } from "react-toastify";
-import { fileUpload } from "@/lib/storage/FileUpload";
+import { FileUpload } from "@/lib/storage/FileUpload";
 
 export const CreateProduct = ({ userId }) => {
   const router = useRouter();
@@ -44,7 +44,7 @@ export const CreateProduct = ({ userId }) => {
 
   const handleSubmit = async (e) => {
     if (selectedFile) {
-      const imageUrl = await fileUpload(selectedFile, "pesanaja");
+      const imageUrl = await FileUpload(selectedFile, "pesanaja");
       const customString = "https://ik.imagekit.io/asrafil/";
       if (imageUrl) {
         payLoad = {
