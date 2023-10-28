@@ -1,4 +1,4 @@
-import { DashboardHome } from "@/components/Dashboard/Home/Home";
+import { DashboardHome } from "@/components/Dashboard/Home/DashboardHome";
 
 async function getResponsesData(id) {
   const res = await fetch(`http://localhost:3000/api/v1/responses/${id}`, {
@@ -8,7 +8,7 @@ async function getResponsesData(id) {
   return data;
 }
 
-export default async function page({ params }) {
+export default async function Page({ params }) {
   const { data } = await getResponsesData(params.id);
   return <DashboardHome data={data} />;
 }

@@ -10,7 +10,7 @@ const S3 = new AWS.S3({
   endpoint: "https://s3.ap-southeast-1.wasabisys.com",
 });
 
-export const fileUpload = (file, folder) => {
+export const FileUpload = (file, folder) => {
   const S3Params = {
     Bucket: "pesanaja",
     Key: `${folder}/${file.name}`,
