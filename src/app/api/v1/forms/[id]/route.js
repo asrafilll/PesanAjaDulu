@@ -3,13 +3,13 @@ import { NextResponse } from "next/server";
 
 // GET SINGLE FORM BY ID
 export async function GET(_, { params }) {
-  const id = params.id;
+  const userId = params.id;
   let formData;
 
   try {
-    formData = await prisma.formOrder.findFirst({
+    formData = await prisma.formOrder.findMany({
       where: {
-        id,
+        userId,
       },
       include: {
         inventory: {
@@ -18,8 +18,6 @@ export async function GET(_, { params }) {
               select: {
                 id: true,
                 title: true,
-                desc: true,
-                image: true,
                 price: true,
               },
             },

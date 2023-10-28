@@ -13,13 +13,9 @@ export const ProductCard = ({ item }) => {
       );
 
       if (res.ok) {
-        console.log("Inventory deleted successfully");
       } else {
-        console.log("Failed to delete inventory. Status code:", res.status);
       }
-    } catch (error) {
-      console.error("Error while deleting inventory:", error);
-    }
+    } catch (error) {}
   };
 
   return (

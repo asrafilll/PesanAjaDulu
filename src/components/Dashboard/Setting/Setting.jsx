@@ -1,3 +1,4 @@
+"use client";
 import {
   Store,
   FileText,
@@ -10,8 +11,22 @@ import {
 } from "lucide-react";
 
 import Link from "next/link";
+import { sellerIdAtom } from "@/state/sellerIdAtom";
+import { useAtom } from "jotai";
+import { useState, useEffect } from "react";
 
 export const DashboardSetting = () => {
+  const [id, setSellerIdAtom] = useAtom(sellerIdAtom);
+  const [localSellerId, setLocalSellerId] = useState("");
+
+  useEffect(() => {
+    if (!id) {
+      const storedSellerId = localStorage.getItem("sellerId");
+      setLocalSellerId(storedSellerId);
+    }
+  }, [id]);
+
+  const sellerId = id ?? localSellerId;
   return (
     <div className="bg-slate-50 h-[100dvh] max-w-screen-sm mx-auto flex flex-col">
       {/* ini header */}
@@ -84,7 +99,7 @@ export const DashboardSetting = () => {
       {/* ini footer */}
       <div className="w-full px-6 py-3 fixed bottom-0 bg-white rounded-tl-3xl rounded-tr-3xl shadow flex-col justify-center items-center gap-3 max-w-screen-sm">
         <div className="w-full justify-evenly items-center flex gap-8">
-          <Link href="/dashboard">
+          <Link href={`/dashboard/${sellerId}`}>
             <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
               <Store className="gap-1 text-neutral-500 mb-1" />
               <div className="text-xs font-semibold text-neutral-500">
@@ -92,7 +107,7 @@ export const DashboardSetting = () => {
               </div>
             </div>
           </Link>
-          <Link href="/dashboard-form">
+          <Link href={`/dashboard-form/${sellerId}`}>
             <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
               <FileText className="gap-1 text-neutral-500 mb-1" />
               <div className="text-xs font-normal text-neutral-500">
@@ -100,7 +115,7 @@ export const DashboardSetting = () => {
               </div>
             </div>
           </Link>
-          <Link href="/dashboard-product">
+          <Link href={`/dashboard-product/${sellerId}`}>
             <div className=" w-12 flex flex-col items-center justify-center cursor-pointer">
               <ShoppingBasket className="gap-1  text-neutral-500 mb-1" />
               <div className="text-xs font-normal text-neutral-500">Produk</div>

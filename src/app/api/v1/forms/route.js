@@ -32,7 +32,7 @@ export async function GET(req) {
 
 // CREATE NEW FORM ORDER
 export async function POST(req) {
-  const { title, desc, endFormDate, userId, inventories } = await req.json();
+  const { title, desc, endFormDate, userId, inventory } = await req.json();
 
   try {
     const createFormOrder = await prisma.formOrder.create({
@@ -42,23 +42,21 @@ export async function POST(req) {
         endFormDate: new Date(endFormDate),
         userId,
       },
+      include: {
+        inventory: true,
+      },
     });
 
-    const createOrderItems = await Promise.all(
-      inventories.map((inventoryItem) => {
-        return prisma.orderItems.create({
-          data: {
-            formId: createFormOrder.id,
-            inventoryId: inventoryItem.inventoryId,
-            quantity: inventoryItem.quantity,
-          },
-        });
-      })
-    );
+    const inventoryConnections = await prisma.inventoryOnForm.createMany({
+      data: inventory.map((inventoryId) => ({
+        formId: createFormOrder.id,
+        inventoryId,
+      })),
+    });
 
     return NextResponse.json(
       {
-        data: { createFormOrder, createOrderItems },
+        data: { ...createFormOrder, inventory: inventoryConnections },
         message: "New FormOrder created",
       },
       { status: 201 }

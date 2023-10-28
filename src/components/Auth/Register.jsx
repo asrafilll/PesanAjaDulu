@@ -4,7 +4,6 @@ import { registerAtom } from "@/state/authAtom";
 import { useAtom } from "jotai";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { CustomToast } from "../shared/Toast";
 
 export const Register = () => {
   const [registerData, setRegisterData] = useAtom(registerAtom);

@@ -59,16 +59,12 @@ export async function DELETE(req, { params }) {
       },
     });
 
-    console.log(deletedInventory);
-
     if (deletedInventory) {
-      console.log(`Inventory item with ID ${id} deleted`);
       return NextResponse.json(
         { data: deletedInventory, message: "Inventory item deleted" },
         { status: 200 }
       );
     } else {
-      console.log(`Inventory item with ID ${id} not found`);
       return NextResponse.json(
         { message: `Inventory item with ID ${id} not found` },
         { status: 404 }
